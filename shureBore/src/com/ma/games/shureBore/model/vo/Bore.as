@@ -8,6 +8,9 @@ package com.ma.games.shureBore.model.vo
 	{
 		public static const EMPTY:int = 0;
 		public static const FULL:int = 1;
+		public static const HIGTH_LIGTH_EMPTY:int = 2;
+		public static const HIGTH_LIGTH_FULL:int = 3;
+		
 		public var status:uint;
 		public var point: PPoint;
 		public function get strState():String {
