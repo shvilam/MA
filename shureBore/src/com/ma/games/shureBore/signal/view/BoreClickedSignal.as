@@ -1,7 +1,7 @@
-package com.ma.games.shureBore.signal 
+package com.ma.games.shureBore.signal.view 
 {
 	import org.osflash.signals.Signal;
-	import com.ma.games.shureBore.model.vo.Point;
+	import com.ma.games.shureBore.model.vo.PPoint;
 	/**
 	 * ...
 	 * @author Shvilam
@@ -11,7 +11,7 @@ package com.ma.games.shureBore.signal
 		
 		public function BoreClickedSignal() 
 		{
-			super(Point)
+			super(PPoint)
 		}
 		
 	}

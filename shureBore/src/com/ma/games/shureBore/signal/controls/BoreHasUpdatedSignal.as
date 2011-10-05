@@ -1,4 +1,4 @@
-package com.ma.games.shureBore.signal 
+package com.ma.games.shureBore.signal.controls 
 {
 	import org.osflash.signals.Signal;
 	import com.ma.games.shureBore.model.vo.Bore;
@@ -7,10 +7,10 @@ package com.ma.games.shureBore.signal
 	 * ...
 	 * @author Shvilam
 	 */
-	public class UpdateBoreSignal extends Signal 
+	public class BoreHasUpdatedSignal extends Signal 
 	{
 		
-		public function UpdateBoreSignal() 
+		public function BoreHasUpdatedSignal() 
 		{
 			super(Bore, int);
 		}

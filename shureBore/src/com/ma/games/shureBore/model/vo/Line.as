@@ -6,8 +6,8 @@ package com.ma.games.shureBore.model.vo
 	 */
 	public class Line 
 	{
-		private var p1:Point;
-		private var p2:Point;
+		private var p1:PPoint;
+		private var p2:PPoint;
 		public function Line() 
 		{
 			
@@ -33,8 +33,8 @@ package com.ma.games.shureBore.model.vo
 		public static function create(obj:Object):Line
 		{
 			var line:Line = new Line();
-			line.p1 = Point.create(obj.p1);
-			line.p2 = Point.create(obj.p2);
+			line.p1 = PPoint.create(obj.p1);
+			line.p2 = PPoint.create(obj.p2);
 			return line;
 		}
 	}

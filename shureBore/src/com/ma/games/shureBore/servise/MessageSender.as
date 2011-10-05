@@ -3,7 +3,8 @@ package com.ma.games.shureBore.servise
 	import com.ma.games.shureBore.model.GameValues;
 	import com.ma.games.shureBore.model.vo.Bord;
 	import com.ma.games.shureBore.model.vo.Line;
-	import com.ma.games.shureBore.model.vo.Point;
+	import com.ma.games.shureBore.model.vo.Player;
+	import com.ma.games.shureBore.model.vo.PPoint;
 	import org.robotlegs.mvcs.Actor;
 	import com.adobe.serialization.json.JSON;
 	import com.adobe.serialization.json.JSONParseError
@@ -24,7 +25,7 @@ package com.ma.games.shureBore.servise
 			
 		}
 		
-		public function fillBore(p:Point):void
+		public function fillBore(p:PPoint):void
 		{
 			var obj:Object = new Object();
 			obj.point = p.toObj();
@@ -50,10 +51,10 @@ package com.ma.games.shureBore.servise
 			messageBus.send(JSON.encode(obj));
 		}
 		
-		public function switchTurns():void
+		public function switchTurns(player:Player):void
 		{
 			var obj:Object = new Object();
-			obj.playerIndex = 1;
+			obj.playerIndex = player.playerIndex;
 			obj.cmd = ServersCMD.SWITCH_TURN;
 			messageBus.send(JSON.encode(obj));
 		}

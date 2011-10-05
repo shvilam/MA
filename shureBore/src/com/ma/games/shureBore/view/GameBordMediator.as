@@ -1,11 +1,17 @@
 package com.ma.games.shureBore.view 
 {
+	import com.ma.games.shureBore.model.GameValues;
 	import com.ma.games.shureBore.model.vo.Bore;
-	import com.ma.games.shureBore.model.vo.Point;
-	import com.ma.games.shureBore.signal.InitBordSignal;
-	import com.ma.games.shureBore.signal.TryToFillBoreSignal;
-	import com.ma.games.shureBore.signal.UpdateBoreSignal;
+	import com.ma.games.shureBore.model.vo.Player;
+	import com.ma.games.shureBore.model.vo.PPoint;
+	import com.ma.games.shureBore.signal.controls.BoreHasUpdatedSignal;
+	import com.ma.games.shureBore.signal.controls.InitBordSignal;
+	import com.ma.games.shureBore.signal.controls.StopAlowFillBore;
+	import com.ma.games.shureBore.signal.controls.TurnHasSwitchSignal;
+	import com.ma.games.shureBore.signal.view.TryToFillBoreSignal;
+	import com.ma.games.shureBore.signal.view.TurnSignal;
 	import org.robotlegs.mvcs.Mediator;
+
 	
 	/**
 	 * ...
@@ -18,17 +24,30 @@ package com.ma.games.shureBore.view
 		private static const WAITING_STATE:uint = 2;
 		
 		[Inject]
-		public var view:BordView;
+		public var view:GameBordView;
 		
 		[Inject]
 		public var initBordSignal:InitBordSignal;
 		
 		[Inject]
 		public var tryToFillBoreSignal:TryToFillBoreSignal;
-		[Inject]
-		public var updateBoreSignal:UpdateBoreSignal;
 		
+		[Inject]
+		public var updateBoreSignal:BoreHasUpdatedSignal;
+		
+		[Inject]
+		public var stopAlowFillBore:StopAlowFillBore;
+		
+		[Inject]
+		public var turnHasSwitchSignal:TurnHasSwitchSignal;
+		
+		//[Inject]
 		private var inputState:uint;
+		
+		
+		
+		[Inject]
+		public var gameValue:GameValues; 
 		
 		public function GameBordMediator() 
 		{
@@ -37,9 +56,28 @@ package com.ma.games.shureBore.view
 		override public function onRegister():void
 		{
 			initBordSignal.add(onInit);
-			view.boreClicked.add(onClicked);
-			updateBoreSignal.add(onUpdateBore)
+			updateBoreSignal.add(onUpdateBore);
+			stopAlowFillBore.add(onStopAlowFillBore);
+			turnHasSwitchSignal.add(onTurnChange);
 		}
+		
+		private function onStopAlowFillBore():void 
+		{
+			view.boreClicked.remove(onClicked);
+		}
+		
+		private function onTurnChange():void 
+		{
+			if (gameValue.isMyTurn())
+			{
+				view.boreClicked.add(onClicked);
+			}
+			else
+			{
+				view.boreClicked.remove(onClicked);
+			}	
+		}
+		
 		private function onUpdateBore(b:Bore, playerIndex:int):void
 		{
 			view.updateBore(b);
@@ -48,8 +86,10 @@ package com.ma.games.shureBore.view
 		private function onInit(bord:Vector.<Vector.<Bore>>):void
 		{
 			view.drow(bord);
+			onTurnChange();
 		}
-		private function onClicked(p:Point):void 
+		
+		private function onClicked(p:PPoint):void 
 		{
 			trace(p.x);
 			if (inputState == FILL_BORE_STATE)

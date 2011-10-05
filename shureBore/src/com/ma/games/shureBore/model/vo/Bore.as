@@ -9,7 +9,7 @@ package com.ma.games.shureBore.model.vo
 		public static const EMPTY:int = 0;
 		public static const FULL:int = 1;
 		public var status:uint;
-		public var point:Point;
+		public var point: PPoint;
 		public function get strState():String {
 			return (status == EMPTY)?"0":"X"
 		}

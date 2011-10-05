@@ -28,7 +28,7 @@ package com.ma.games.shureBore.model.vo
 				{
 					
 					bord[i][j] = new Bore();
-					bord[i][j].point = new Point(i, j);
+					bord[i][j].point = new PPoint(i, j);
 					bord[i][j].status = Bore.EMPTY;
 					line+=	bord[i][j].strState
 				}

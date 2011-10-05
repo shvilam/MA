@@ -4,18 +4,18 @@ package com.ma.games.shureBore.model.vo
 	 * ...
 	 * @author Shvilam
 	 */
-	public class Point 
+	public class PPoint 
 	{
 		public var x:int;
 		public var y:int;
 		
-		public function Point(x:uint=0,y:uint=0) 
+		public function PPoint(x:uint=0,y:uint=0) 
 		{
 			this.x = x;
 			this.y = y;
 		}
 		
-		public function isEqual(p:Point):Boolean
+		public function isEqual(p:PPoint):Boolean
 		{
 			if (x == p.x && y == p.y)
 			{
@@ -24,9 +24,9 @@ package com.ma.games.shureBore.model.vo
 			return false;
 		}
 		
-		public static function create(obj:Object):Point
+		public static function create(obj:Object):PPoint
 		{
-			var p:Point = new Point(parseInt(obj["x"]), parseInt(obj["y"]));
+			var p:PPoint = new PPoint(parseInt(obj["x"]), parseInt(obj["y"]));
 			
 			return p;
 		}

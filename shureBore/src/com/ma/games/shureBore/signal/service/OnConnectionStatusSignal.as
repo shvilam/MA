@@ -1,4 +1,4 @@
-package com.ma.games.shureBore.signal 
+package com.ma.games.shureBore.signal.service 
 {
 	import org.osflash.signals.Signal;
 	

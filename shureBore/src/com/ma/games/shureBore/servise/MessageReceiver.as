@@ -1,10 +1,12 @@
 package com.ma.games.shureBore.servise 
 {
 	import com.ma.games.shureBore.model.vo.Line;
-	import com.ma.games.shureBore.model.vo.Point;
-	import com.ma.games.shureBore.signal.ConnectionStatusSignal;
-	import com.ma.games.shureBore.signal.server.*;
-	import com.ma.games.shureBore.signal.TryToFillBoreSignal;
+	import com.ma.games.shureBore.model.vo.Player;
+	import com.ma.games.shureBore.model.vo.PPoint;
+	import com.ma.games.shureBore.signal.service.OnServerAddLineSignal;
+	import com.ma.games.shureBore.signal.service.OnServerFillBoreSignal;
+	import com.ma.games.shureBore.signal.service.OnServerSwitchTurnSignal;
+	import com.ma.games.shureBore.signal.service.OnServerTimeoutSignal;
 	import org.robotlegs.mvcs.Actor;
 	import flash.external.ExternalInterface;
 	import com.adobe.serialization.json.JSON
@@ -14,22 +16,32 @@ package com.ma.games.shureBore.servise
 	 */
 	public class MessageReceiver extends Actor
 	{
-		
-		public var connectionStatusSignal:ConnectionStatusSignal;
+		//[Inject]
+		//public var connectionStatusSignal:ConnectionStatusSignal;
+		[Inject]
 		public var onServerFillBoreSignal:OnServerFillBoreSignal;
+		[Inject]
 		public var onServerAddLineSignal:OnServerAddLineSignal;
-		public var onServerUserDisconnectSignal:OnServerUserDisconnectSignal;
+		//[Inject]
+		//public var onServerUserDisconnectSignal:OnServerUserDisconnectSignal;
+		[Inject]
 		public var onServerTimeout:OnServerTimeoutSignal;
+		
+		[Inject]
 		public var onServerSwitchTurn:OnServerSwitchTurnSignal;
+		
+		
 		
 		public function MessageReceiver() 
 		{
+			/*
 			connectionStatusSignal = new ConnectionStatusSignal();
 			onServerFillBoreSignal = new OnServerFillBoreSignal();
 			onServerAddLineSignal = new OnServerAddLineSignal(); 
 			onServerUserDisconnectSignal = new OnServerUserDisconnectSignal();
 			onServerTimeout = new OnServerTimeoutSignal();
 			onServerSwitchTurn = new OnServerSwitchTurnSignal();
+			*/
 			ExternalInterface.addCallback("onServer", onServer);
 		}
 		public function init():void
@@ -63,7 +75,7 @@ package com.ma.games.shureBore.servise
 		}
 		private function onSwitchTurn(obj:Object):void
 		{
-			
+			onServerSwitchTurn.dispatch(parseInt(obj.playerIndex));
 		}
 		private function onTimeUp(obj:Object):void
 		{
@@ -78,9 +90,9 @@ package com.ma.games.shureBore.servise
 		
 		private function onFillBore(obj:Object):void
 		{
-			var p:Point= Point.create(obj.point);
+			var p:PPoint= PPoint.create(obj.point);
 			//var playerIndex:User = obj.playerIndex;
-			onServerFillBoreSignal.dispatch(p,obj.playerIndex);
+			onServerFillBoreSignal.dispatch(obj.playerIndex,p);
 		}
 		private function onAddLine(obj:Object):void
 		{

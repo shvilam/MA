@@ -1,7 +1,7 @@
-package com.ma.games.shureBore.signal.server 
+package com.ma.games.shureBore.signal.service 
 {
 	import org.osflash.signals.Signal;
-	import com.ma.games.shureBore.model.vo.Point
+	import com.ma.games.shureBore.model.vo.PPoint
 	/**
 	 * ...
 	 * @author Shvilam
@@ -11,7 +11,7 @@ package com.ma.games.shureBore.signal.server
 		
 		public function OnServerFillBoreSignal() 
 		{
-			super(Point)
+			super(int,PPoint)
 		}
 		
 	}

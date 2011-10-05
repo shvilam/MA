@@ -19,6 +19,7 @@ package com.ma.games.shureBore
 		private function init(e:Event = null):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			removeEventListener(Event.ADDED_TO_STAGE, init);
 			var co:ShureBoreContect = new ShureBoreContect(this);
 			// entry point
 		}

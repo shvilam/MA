@@ -3,7 +3,7 @@ package com.ma.games.shureBore.model
 	import com.ma.games.shureBore.model.vo.Bord;
 	import com.ma.games.shureBore.model.vo.Bore;
 	import com.ma.games.shureBore.model.vo.Line;
-	import com.ma.games.shureBore.model.vo.Point;
+	import com.ma.games.shureBore.model.vo.PPoint;
 	import org.robotlegs.mvcs.Actor;
 	
 	/**
@@ -40,12 +40,12 @@ package com.ma.games.shureBore.model
 				trace(line);
 			}
 		}
-		public function getBore(p:Point):Bore
+		public function getBore(p:PPoint):Bore
 		{
 			return gameBord.bord[p.x][p.y];
 		}
 		
-		public function fillBore(p:Point):Bore
+		public function fillBore(p:PPoint):Bore
 		{
 			gameBord.bord[p.x][p.y].status = Bore.FULL;
 			return gameBord.bord[p.x][p.y];
