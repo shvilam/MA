@@ -17,6 +17,7 @@ package com.ma.games.shureBore.view
 		{
 			super();
 			var skin:TimerSkin = new TimerSkin();
+			fill = skin.TickSkin;
 			addChild(skin);
 		}
 		
@@ -28,6 +29,7 @@ package com.ma.games.shureBore.view
 		internal function clear():void
 		{
 			//TODO: 
+			fill.width = 2;
 			//removeChild(fill);	
 		}
 		

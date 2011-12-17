@@ -53,8 +53,10 @@ package com.ma.games.shureBore
 			injector.mapSingleton(InitBordSignal);
 			injector.mapSingleton(BoreHasUpdatedSignal);
 			injector.mapSingleton(TurnHasSwitchSignal);
+			injector.mapSingleton(ScoreHasUpdateSignal);
+			injector.mapSingleton(LineHasAddedSignal);
 			injector.mapSingleton(TimeEndedSignal);
-			injector.mapSingleton(StopAlowFillBore);
+			injector.mapSingleton(StopAlowFillBoreSignal);
 			
 			injector.mapSingletonOf(IMessageBus, ExternalBus);
 			
@@ -62,31 +64,26 @@ package com.ma.games.shureBore
 			startupSignal = StartupSignal(signalCommandMap.mapSignalClass(StartupSignal, StartupCommand));
 			// view
 			signalCommandMap.mapSignalClass(OnBoreClickedSignal, BoreClickCommand);
+			signalCommandMap.mapSignalClass(TimeEndedSignal, MyTimeHasOutCommand);
+			
 			// conmmand
 			signalCommandMap.mapSignalClass(TryToFillBoreSignal, BoreClickCommand);
-			
+			signalCommandMap.mapSignalClass(TryDrawLineSignal, LineDrawCommand);
+			// Server
 			signalCommandMap.mapSignalClass(OnServerFillBoreSignal,FillBoreCommand);
-			signalCommandMap.mapSignalClass(OnServerAddLineSignal, AddLineBoreCommand);
-			signalCommandMap.mapSignalClass(OnServerTimeoutSignal, TimeOutCommand);
+			signalCommandMap.mapSignalClass(OnServerAddLineSignal, AddLineCommand);
+			
 			signalCommandMap.mapSignalClass(TurnSignal, SwitchTurnCommand);
 			signalCommandMap.mapSignalClass(OnServerSwitchTurnSignal, TurnHasSwitchCommand);
-			
-			
 			
 			
 			mediatorMap.mapView(GameBordView, GameBordMediator);
 			mediatorMap.mapView(TurnView, TurnMediator);
 			mediatorMap.mapView(ControlsView, ControlsMediator);
 			mediatorMap.mapView(TimerView, TimerMediator);
-			
-			
+			mediatorMap.mapView(ScoreView, ScoreMediator);
 			
 			startupSignal.dispatch();
-			
-			
-			
-			
-
 		}
 		
 	}

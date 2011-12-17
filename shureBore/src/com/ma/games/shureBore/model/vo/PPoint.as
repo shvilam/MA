@@ -4,15 +4,19 @@ package com.ma.games.shureBore.model.vo
 	 * ...
 	 * @author Shvilam
 	 */
-	public class PPoint 
+	public class PPoint extends Object
 	{
-		public var x:int;
-		public var y:int;
+		public var x:int = -1;
+		public var y:int = -1;
 		
-		public function PPoint(x:uint=0,y:uint=0) 
+		public function PPoint(x:int=-1,y:int=-1) 
 		{
 			this.x = x;
 			this.y = y;
+		}
+		public function toString():String
+		{
+			return "x: " + x + " y: " + y;
 		}
 		
 		public function isEqual(p:PPoint):Boolean
@@ -37,6 +41,11 @@ package com.ma.games.shureBore.model.vo
 			obj["x"] = x;
 			obj["y"] = y;
 			return obj;
+		}
+		
+		public function isValid(): Boolean 
+		{
+			return (x >= 0 && y >= 0)?true:false;
 		}
 		
 	}

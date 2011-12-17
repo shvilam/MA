@@ -24,8 +24,8 @@ package com.ma.games.shureBore.servise
 		public var onServerAddLineSignal:OnServerAddLineSignal;
 		//[Inject]
 		//public var onServerUserDisconnectSignal:OnServerUserDisconnectSignal;
-		[Inject]
-		public var onServerTimeout:OnServerTimeoutSignal;
+		//[Inject]
+		//public var onServerTimeout:OnServerTimeoutSignal;
 		
 		[Inject]
 		public var onServerSwitchTurn:OnServerSwitchTurnSignal;

@@ -8,10 +8,16 @@ package com.ma.games.shureBore.model
 	 */
 	public class GameValues extends Actor
 	{
+		
 		[Inject(name="Player.me")] 
 		public var me:Player;
 		
-		public var howsTurn:Player;// will hold the player index
+		public var howsTurn:Player;
+		
+		public var isBoreFill:Boolean;
+		
+		private var _myScore:int;
+		private var _hisScore:int;
 		
 		public function isMyTurn():Boolean
 		{
@@ -23,10 +29,26 @@ package com.ma.games.shureBore.model
 			howsTurn = player;
 		}
 		
-		public function GameValues() 
+		public function addPintsToHis(numOfBore:int):void 
 		{
-			
+			_hisScore = _hisScore + numOfBore;
 		}
+		
+		public function addPintsToMe(numOfBore:int):void 
+		{
+			_myScore = _myScore + numOfBore;
+		}
+		
+		public function get myScore():int 
+		{
+			return _myScore;
+		}
+		
+		public function get hisScore():int 
+		{
+			return _hisScore;
+		}
+		
 		
 	}
 

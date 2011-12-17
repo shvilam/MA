@@ -2,12 +2,15 @@ package com.ma.games.shureBore.view
 {
 	import com.ma.games.shureBore.model.GameValues;
 	import com.ma.games.shureBore.model.vo.Bore;
+	import com.ma.games.shureBore.model.vo.Line;
 	import com.ma.games.shureBore.model.vo.Player;
 	import com.ma.games.shureBore.model.vo.PPoint;
 	import com.ma.games.shureBore.signal.controls.BoreHasUpdatedSignal;
 	import com.ma.games.shureBore.signal.controls.InitBordSignal;
-	import com.ma.games.shureBore.signal.controls.StopAlowFillBore;
+	import com.ma.games.shureBore.signal.controls.LineHasAddedSignal;
+	import com.ma.games.shureBore.signal.controls.StopAlowFillBoreSignal;
 	import com.ma.games.shureBore.signal.controls.TurnHasSwitchSignal;
+	import com.ma.games.shureBore.signal.view.TryDrawLineSignal;
 	import com.ma.games.shureBore.signal.view.TryToFillBoreSignal;
 	import com.ma.games.shureBore.signal.view.TurnSignal;
 	import org.robotlegs.mvcs.Mediator;
@@ -33,13 +36,20 @@ package com.ma.games.shureBore.view
 		public var tryToFillBoreSignal:TryToFillBoreSignal;
 		
 		[Inject]
+		public var tryDrawLineSignal:TryDrawLineSignal;
+		
+		[Inject]
 		public var updateBoreSignal:BoreHasUpdatedSignal;
 		
 		[Inject]
-		public var stopAlowFillBore:StopAlowFillBore;
+		public var stopAlowFillBore:StopAlowFillBoreSignal;
 		
 		[Inject]
 		public var turnHasSwitchSignal:TurnHasSwitchSignal;
+		
+		[Inject]
+		public var lineHasAddedSignal:LineHasAddedSignal;
+		
 		
 		//[Inject]
 		private var inputState:uint;
@@ -59,11 +69,19 @@ package com.ma.games.shureBore.view
 			updateBoreSignal.add(onUpdateBore);
 			stopAlowFillBore.add(onStopAlowFillBore);
 			turnHasSwitchSignal.add(onTurnChange);
+			lineHasAddedSignal.add(addNewLine);
+		}
+		
+		private function addNewLine(line:Line):void 
+		{
+			view.addLine(line);
 		}
 		
 		private function onStopAlowFillBore():void 
 		{
 			view.boreClicked.remove(onClicked);
+			view.lineDrawSignal.add(onNewLine);
+			view.setBordDrawLineState();
 		}
 		
 		private function onTurnChange():void 
@@ -71,11 +89,20 @@ package com.ma.games.shureBore.view
 			if (gameValue.isMyTurn())
 			{
 				view.boreClicked.add(onClicked);
+				view.lineDrawSignal.add(onNewLine);
+				view.setBoredFillBoreState();
 			}
 			else
 			{
+				view.lineDrawSignal.remove(onNewLine);
 				view.boreClicked.remove(onClicked);
+				view.setBordBlockState();
 			}	
+		}
+		
+		private function onNewLine(line:Line):void 
+		{
+			tryDrawLineSignal.dispatch(line);
 		}
 		
 		private function onUpdateBore(b:Bore, playerIndex:int):void

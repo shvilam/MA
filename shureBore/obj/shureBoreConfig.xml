@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'10/5/2011'</value>
+      <value>'10/23/2011'</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
@@ -40,7 +40,7 @@
   <default-background-color>#FFFFFF</default-background-color>
   <default-frame-rate>30</default-frame-rate>
   <default-size>
-    <width>500</width>
-    <height>300</height>
+    <width>600</width>
+    <height>800</height>
   </default-size>
 </flex-config>

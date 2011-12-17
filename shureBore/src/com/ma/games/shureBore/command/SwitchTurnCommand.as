@@ -14,9 +14,6 @@ package com.ma.games.shureBore.command
 	public class SwitchTurnCommand extends SignalCommand
 	{
 		[Inject]
-		public var turnHasSwitchSignal:TurnHasSwitchSignal;
-		
-		[Inject]
 		public var sender:MessageSender;
 		
 		[Inject]

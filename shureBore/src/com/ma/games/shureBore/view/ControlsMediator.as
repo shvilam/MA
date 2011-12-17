@@ -4,6 +4,7 @@ package com.ma.games.shureBore.view
 	import com.ma.games.shureBore.model.GameBordModel;
 	import com.ma.games.shureBore.model.GameValues;
 	import com.ma.games.shureBore.model.vo.Player;
+	import com.ma.games.shureBore.signal.controls.StopAlowFillBoreSignal;
 	import com.ma.games.shureBore.signal.controls.TurnHasSwitchSignal;
 	import com.ma.games.shureBore.signal.view.TurnSignal;
 	
@@ -19,6 +20,8 @@ package com.ma.games.shureBore.view
 	 */
 	public class ControlsMediator extends Mediator 
 	{
+		[Inject]
+		public var stopAlowFillBoreSignal:StopAlowFillBoreSignal;
 		
 		[Inject]
 		public var view:ControlsView;
@@ -46,12 +49,13 @@ package com.ma.games.shureBore.view
 		public override function onRegister():void
 		{
 			turnHasSwitchSignal.add(onTurnChange);
+			stopAlowFillBoreSignal.add(onTurnChange);
 			onTurnChange();
 		}
 		
 		private function onTurnChange():void 
 		{
-			if (gameValues.isMyTurn())
+			if (gameValues.isMyTurn() && gameValues.isBoreFill)
 			{
 				view.turnClickSignal.addOnce(switchTurn); 
 				trace("alloing change turn");

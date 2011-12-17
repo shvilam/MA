@@ -6,8 +6,11 @@ package com.ma.games.shureBore.model.vo
 	 */
 	public class Line 
 	{
-		private var p1:PPoint;
-		private var p2:PPoint;
+		public var p1:PPoint;
+		public var p2:PPoint;
+		
+		public var numOfBore:int;
+		
 		public function Line() 
 		{
 			
@@ -25,8 +28,9 @@ package com.ma.games.shureBore.model.vo
 		public function toObj():Object
 		{
 			var obj:Object = new Object();
-			obj.p1 = p1.toObj;
-			obj.p2 = p2.toObj;
+			obj.p1 = p1.toObj();
+			obj.p2 = p2.toObj();
+			obj.numOfBore = numOfBore;
 			return obj;
 		}
 		
@@ -35,7 +39,22 @@ package com.ma.games.shureBore.model.vo
 			var line:Line = new Line();
 			line.p1 = PPoint.create(obj.p1);
 			line.p2 = PPoint.create(obj.p2);
+			line.numOfBore = obj.numOfBore;
 			return line;
+		}
+		
+		public function isValid():Boolean 
+		{
+		
+			if (p1!= null && p2!=null && p1.isValid() && p2.isValid())
+			{
+				trace("p1 " + p1.toString())
+				trace("p2 " + p2.toString())
+				return (p1.isEqual(p2))?false:true;
+			}
+			else {
+				return false;
+			}
 		}
 	}
 

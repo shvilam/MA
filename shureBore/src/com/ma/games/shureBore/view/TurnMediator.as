@@ -2,6 +2,7 @@ package com.ma.games.shureBore.view
 {
 	import com.ma.games.shureBore.model.GameValues;
 	import com.ma.games.shureBore.model.vo.Player;
+	import com.ma.games.shureBore.signal.controls.StopAlowFillBoreSignal;
 	import com.ma.games.shureBore.signal.controls.TurnHasSwitchSignal;
 	import com.ma.games.shureBore.signal.view.TurnSignal;
 	import org.robotlegs.mvcs.Mediator;

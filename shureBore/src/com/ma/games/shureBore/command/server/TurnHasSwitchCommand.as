@@ -33,6 +33,7 @@ package com.ma.games.shureBore.command.server
 			trace("server ask to switch turn me.playerIndex: " + me.playerIndex + "playerIndex: " + playerIndex);
 			var player:Player = (playerIndex == me.playerIndex)?me:his;
 			gameValues.setTurn(player);
+			gameValues.isBoreFill = false;
 			turnHasSwitchSignal.dispatch();
 		}
 		
