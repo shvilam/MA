@@ -1,0 +1,309 @@
+package com.ma.games.shureBore.view
+{
+	import com.gskinner.sprites.*;
+	import com.ma.games.shureBore.model.vo.*;
+	import com.ma.games.shureBore.signal.view.*;
+	import flash.display.*;
+	import flash.events.*;
+	
+	/**
+	 * ...
+	 * @author Shvilam
+	 */
+	public class GameBordView extends MovieClip
+	{
+		
+		private static const CIRCEL_RADIOS:uint = 10;
+		private static const SPACE:int = 5;
+		
+		private MovieClip exsistinglines;
+		private Line line;
+		private MovieClip lineMc;
+		private uint bord_size;
+		
+		internal BoreClickedSignal boreClicked;
+		internal LineDrawSignal lineDrawSignal;
+		
+		public GameBordView()
+		{
+			boreClicked = new BoreClickedSignal();
+			lineDrawSignal = new LineDrawSignal();
+			line = new Line();
+			lineMc = new MovieClip();
+			exsistinglines = new MovieClip();
+			addChild(exsistinglines)
+			addChild(lineMc);
+		}
+		
+		public void addLine(Line line) 
+		{
+			MovieClip boreView1 = getBore(line.p1);
+			MovieClip boreView2 = getBore(line.p2);
+			MovieClip addedLineMc = new MovieClip();
+			
+			addedLineMc.graphics.clear()
+			addedLineMc.graphics.moveTo(boreView1.x, boreView1.y);
+			addedLineMc.graphics.lineStyle(5, 28222, 0.5);
+			addedLineMc.graphics.lineTo(boreView2.x, boreView2.y);
+			addedLineMc.graphics.endFill();
+			exsistinglines.addChild(addedLineMc);
+			
+		}
+		
+		
+		
+		internal void updateBore(Bore b)
+		{
+			MovieClip boreView = getBore(b.point);
+			setBoreByStatus(boreView, b.status);
+		}
+		
+		internal void drow(%#bord:Vector.<Vector.<Bore>>%#)
+		{
+			MovieClip boreView;
+			bord_size = bord.length;
+			trace(bord_size)
+			for (uint iX = 0; iX < bord.length; iX++)
+			{
+				for (uint iY = 0; iY < bord[iX].length; iY++)
+				{
+					boreView = createBore(bord[iX][iY]);
+				}
+			}
+		}
+		
+		
+		private MovieClip createBore(Bore b)
+		{
+			MovieClip boreView = new MovieClip();
+			boreView.name = "bore_" + b.point.x + "_" + b.point.y;
+			boreView.x = b.point.x * CIRCEL_RADIOS * SPACE;
+			boreView.y = b.point.y * CIRCEL_RADIOS * SPACE;
+			setBoreByStatus(boreView, b.status);
+			addChild(boreView);
+			return boreView;
+		}
+		
+		internal void setBoredFillBoreState()
+		{
+			for (uint i = 0; i < bord_size; i++)
+			{
+				uint lineSize = i + 1;
+				for (uint j = 0; j < lineSize; j++)
+				{
+					MovieClip boreView = getBore(new PPo((int)i, j));
+					boreView.removeEventListener(MouseEvent.MOUSE_DOWN, onStartLine);
+					boreView.addEventListener(MouseEvent.CLICK, onBoreClicked);
+				}
+			}
+		}
+		
+		internal void setBordDrawLineState()
+		{
+			for (uint i = 0; i < bord_size; i++)
+			{
+				uint lineSize = i + 1;
+				for (uint j = 0; j < lineSize; j++)
+				{
+					MovieClip boreView = getBore(new PPo((int)i, j));
+					boreView.removeEventListener(MouseEvent.CLICK, onBoreClicked);
+					boreView.addEventListener(MouseEvent.MOUSE_DOWN, onStartLine);
+				}
+			}
+			
+		}
+		
+		internal void setBordBlockState() 
+		{
+			for (uint iX = 0; iX < bord_size; iX++)
+			{
+				uint lineSize = iX + 1;
+				for (uint iY = 0; iY < lineSize; iY++)
+				{
+					MovieClip boreView = getBore(new PPo((int)iX, iY));
+					boreView.removeEventListener(MouseEvent.CLICK, onBoreClicked);
+					root.removeEventListener(MouseEvent.MOUSE_UP, onEndLine);
+					boreView.removeEventListener(MouseEvent.MOUSE_DOWN, onStartLine);
+				}
+			}
+			
+		}
+		
+		private void onBoreClicked(MouseEvent e)
+		{
+			PPoint p = getPo((int)e.(MovieClip)target);
+			boreClicked.dispatch(p);
+		}
+		
+		private void onEndLine(MouseEvent evt)
+		{
+			root.removeEventListener(Event.ENTER_FRAME, drowLine);
+			root.removeEventListener(MouseEvent.MOUSE_UP, onEndLine);
+			lineMc.graphics.clear();
+			for (uint iX = 0; iX < bord_size; iX++)
+			{
+				uint lineSize = iX + 1;
+				for (uint iY = 0; iY < lineSize; iY++)
+				{
+					MovieClip boreView = getBore(new PPo((int)iX, iY));
+					restorHigthLigthBore(boreView);
+				}
+			}
+			
+			PPoint p = getPo((int)evt.(MovieClip)target);
+			line.p2 = p;
+			if (line.isValid())
+			{
+				lineDrawSignal.dispatch(line);
+			}
+		}
+		
+		private void onStartLine(MouseEvent evt)
+		{
+			
+			PPoint p = getPo((int)evt.(MovieClip)target);
+			if (p.isValid())
+			{
+				line = new Line();
+				line.p1 =  p;
+				MovieClip boreView = getBore(p);
+				setHigthLigthBore(boreView);
+				
+				root.addEventListener(MouseEvent.MOUSE_UP, onEndLine);
+				root.addEventListener(Event.ENTER_FRAME, drowLine);
+			}
+		}
+		
+		private void drowLine(Event e)
+		{
+			MovieClip mc = getBore(line.p1);
+			lineMc.graphics.clear()
+			lineMc.graphics.moveTo(mc.x, mc.y);
+			lineMc.graphics.lineStyle(10, 2222, 0.3);
+			lineMc.graphics.lineTo(mouseX, mouseY);
+			lineMc.graphics.endFill();
+			for (uint i = 0; i < bord_size; i++)
+			{
+				uint lineSize = i + 1;
+				for (uint j = 0; j < lineSize; j++)
+				{
+					MovieClip boreView = getBore(new PPo((int)i, j));
+					if (PixelPerfectCollisionDetection.isColliding(boreView, lineMc, boreView.parent, true))
+					{
+						setHigthLigthBore(boreView);
+					}
+					else
+					{
+						restorHigthLigthBore(boreView);
+					}
+				}
+			}
+		}
+		private void restorHigthLigthBore(MovieClip boreView)
+		{
+			switch (boreView.status)
+			{
+				case Bore.HIGTH_LIGTH_EMPTY: 
+					setBoreByStatus(boreView, Bore.EMPTY);
+					break;
+				case Bore.HIGTH_LIGTH_FULL: 
+					setBoreByStatus(boreView, Bore.FULL);
+					break;
+			}
+		}
+		
+		private void setHigthLigthBore(MovieClip boreView)
+		{
+			switch (boreView.status)
+			{
+				case Bore.EMPTY: 
+					setBoreByStatus(boreView, Bore.HIGTH_LIGTH_EMPTY);
+					break;
+				case Bore.FULL: 
+					setBoreByStatus(boreView, Bore.HIGTH_LIGTH_FULL);
+					break;
+			}
+		}
+		
+		private void setBoreByStatus(MovieClip boreView,int status)
+		{
+			boreView.graphics.clear();
+			boreView.status = status;
+			switch (status)
+			{
+				case Bore.EMPTY: 
+					drowEmptyBore(boreView);
+					break;
+				case Bore.FULL: 
+					drowFullBore(boreView);
+					break;
+				case Bore.HIGTH_LIGTH_EMPTY: 
+					drowEmptyHigthLigthBore(boreView);
+					break;
+				case Bore.HIGTH_LIGTH_FULL: 
+					drowFullHigthLigthBore(boreView);
+					break;
+			}
+		}
+		
+		private void drowFullBore(MovieClip boreView)
+		{
+			boreView.graphics.beginFill(163354, 1);
+			boreView.graphics.drawCircle(0, 0, CIRCEL_RADIOS);
+			boreView.graphics.endFill();
+		}
+		
+		private void drowEmptyBore(MovieClip boreView)
+		{
+			boreView.graphics.beginFill(163354, 0.2)
+			boreView.graphics.drawCircle(0, 0, CIRCEL_RADIOS);
+			boreView.graphics.endFill();
+		}
+		
+		private void drowFullHigthLigthBore(MovieClip boreView)
+		{
+			boreView.graphics.beginFill(1654, 0.2)
+			boreView.graphics.drawCircle(0, 0, CIRCEL_RADIOS + 4);
+			boreView.graphics.endFill();
+			boreView.graphics.beginFill(114, 1)
+			boreView.graphics.drawCircle(0, 0, CIRCEL_RADIOS);
+			boreView.graphics.endFill();
+		}
+		
+		private void drowEmptyHigthLigthBore(MovieClip boreView)
+		{
+			boreView.graphics.beginFill(464664, 0.1)
+			boreView.graphics.drawCircle(0, 0, CIRCEL_RADIOS + 4);
+			boreView.graphics.endFill();
+			boreView.graphics.beginFill(113354, 0.2)
+			boreView.graphics.drawCircle(0, 0, CIRCEL_RADIOS);
+			boreView.graphics.endFill();
+		}
+		
+		private PPoint getPo((int)MovieClip mc)
+		{
+			PPoint p = new PPoint();
+			if (mc != null && mc.name.indexOf("_")!= -1)
+			{
+				
+				Array parts = mc.name.split("_");
+				if (parts != null && parts.length > 0)
+				{
+					uint x = parseInt(parts[1]);
+					uint y = parseInt(parts[2]);
+					p = new PPo((int)x, y);
+				}
+				
+			}
+			return p;
+		}
+		
+		private MovieClip getBore(PPoint p)
+		{
+			return getChildByName("bore_" + p.x + "_" + p.y) as MovieClip;
+		}
+		
+	
+	}
+
+}
