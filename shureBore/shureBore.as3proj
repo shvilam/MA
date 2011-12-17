@@ -16,6 +16,8 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
+    <class path="tests" />
+    <class path="..\lukebayes-asunit-e2af845\as3\src" />
   </classpaths>
   <!-- Build options -->
   <build>
@@ -41,7 +43,7 @@
     <option loadExterns="" />
     <option staticLinkRSL="True" />
     <option additional="" />
-    <option compilerConstants="" />
+    <option compilerConstants="CONFIG2::unittests,true" />
     <option minorVersion="" />
   </build>
   <!-- SWC Include Libraries -->
@@ -90,8 +92,7 @@
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="True" />
-    <option testMovie="OpenDocument" />
-    <option testMovieCommand="http://local/shureBore/bin/gameSimulator.html" />
+    <option testMovie="ExternalPlayer" />
   </options>
   <!-- Plugin storage -->
   <storage />

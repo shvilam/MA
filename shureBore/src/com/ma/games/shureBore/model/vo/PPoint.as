@@ -1,7 +1,7 @@
 package com.ma.games.shureBore.model.vo 
 {
 	/**
-	 * ...
+	 * a smaller object that hold only the position of a bore with out the state 
 	 * @author Shvilam
 	 */
 	public class PPoint extends Object
@@ -14,6 +14,10 @@ package com.ma.games.shureBore.model.vo
 			this.x = x;
 			this.y = y;
 		}
+		/**
+		 * util function 
+		 * @return
+		*/
 		public function toString():String
 		{
 			return "x: " + x + " y: " + y;
@@ -28,24 +32,32 @@ package com.ma.games.shureBore.model.vo
 			return false;
 		}
 		
+		public function isValid(): Boolean 
+		{
+			return (x >= 0 && y >= 0)?true:false;
+		}
+		
+		/**
+		 * deserialize
+		 * @param	obj
+		 * @return
+		 */
 		public static function create(obj:Object):PPoint
 		{
 			var p:PPoint = new PPoint(parseInt(obj["x"]), parseInt(obj["y"]));
 			
 			return p;
 		}
-		
+		/**
+		 * serialize
+		 * @return
+		 */
 		public function toObj():Object
 		{
 			var obj:Object= new Object();
 			obj["x"] = x;
 			obj["y"] = y;
 			return obj;
-		}
-		
-		public function isValid(): Boolean 
-		{
-			return (x >= 0 && y >= 0)?true:false;
 		}
 		
 	}

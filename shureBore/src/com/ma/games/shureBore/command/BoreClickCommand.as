@@ -36,7 +36,6 @@ package com.ma.games.shureBore.command
 				gameValues.isBoreFill = true;
 				sender.fillBore(p);
 				stopAlowFillBore.dispatch();
-				
 			}
 		}
 	}

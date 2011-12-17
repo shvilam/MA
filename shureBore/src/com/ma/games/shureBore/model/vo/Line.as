@@ -1,7 +1,8 @@
 package com.ma.games.shureBore.model.vo 
 {
 	/**
-	 * ...
+	 * line from one bore to the end bore 
+	 * line from one point to the end point
 	 * @author Shvilam
 	 */
 	public class Line 
@@ -11,10 +12,7 @@ package com.ma.games.shureBore.model.vo
 		
 		public var numOfBore:int;
 		
-		public function Line() 
-		{
-			
-		}
+	
 		public function isEqual(line:Line):Boolean
 		{
 			if ( (p1.isEqual(line.p1) && p2.isEqual(line.p2) )||
@@ -25,27 +23,9 @@ package com.ma.games.shureBore.model.vo
 				return false;	
 		}
 		
-		public function toObj():Object
-		{
-			var obj:Object = new Object();
-			obj.p1 = p1.toObj();
-			obj.p2 = p2.toObj();
-			obj.numOfBore = numOfBore;
-			return obj;
-		}
-		
-		public static function create(obj:Object):Line
-		{
-			var line:Line = new Line();
-			line.p1 = PPoint.create(obj.p1);
-			line.p2 = PPoint.create(obj.p2);
-			line.numOfBore = obj.numOfBore;
-			return line;
-		}
 		
 		public function isValid():Boolean 
 		{
-		
 			if (p1!= null && p2!=null && p1.isValid() && p2.isValid())
 			{
 				trace("p1 " + p1.toString())
@@ -55,6 +35,32 @@ package com.ma.games.shureBore.model.vo
 			else {
 				return false;
 			}
+		}
+		
+		/**
+		 * serialize the object
+		 * @return
+		 */
+		public function toObj():Object
+		{
+			var obj:Object = new Object();
+			obj.p1 = p1.toObj();
+			obj.p2 = p2.toObj();
+			obj.numOfBore = numOfBore;
+			return obj;
+		}
+		/**
+		 * deserialize 
+		 * @param	obj
+		 * @return
+		 */
+		public static function create(obj:Object):Line
+		{
+			var line:Line = new Line();
+			line.p1 = PPoint.create(obj.p1);
+			line.p2 = PPoint.create(obj.p2);
+			line.numOfBore = obj.numOfBore;
+			return line;
 		}
 	}
 

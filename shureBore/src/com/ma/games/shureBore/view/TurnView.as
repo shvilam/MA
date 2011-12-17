@@ -9,6 +9,8 @@ package com.ma.games.shureBore.view
 	 */
 	public class TurnView extends Sprite 
 	{
+		private static const MY_TURN:String 	= "MY_TURN";
+		private static const HIS_TURN:String 	= "HIS_TURN";
 		internal var text:TextField;
 		private var skin:TurnIndecatorSkin 
 		public function TurnView() 
@@ -20,13 +22,13 @@ package com.ma.games.shureBore.view
 		
 		internal function setMyTurn():void 
 		{
-			skin.gotoAndStop("MY_TURN");
+			skin.gotoAndStop(MY_TURN);
 			
 		}
 		
 		internal function setHisTurn():void 
 		{
-			skin.gotoAndStop("HIS_TURN");
+			skin.gotoAndStop(HIS_TURN);
 		}
 	}
 

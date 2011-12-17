@@ -13,8 +13,8 @@ package com.ma.games.shureBore.view
 	public class GameBordView extends MovieClip
 	{
 		
-		private static const CIRCEL_RADIOS:uint = 10;
-		private static const SPACE:int = 5;
+		private static const CIRCEL_RADIOS:uint = 10; // size of the bore
+		private static const SPACE:int = 5; // the space beteewn bore 
 		
 		private var exsistinglines:MovieClip;
 		private var line:Line;
@@ -86,12 +86,14 @@ package com.ma.games.shureBore.view
 		
 		internal function setBoredFillBoreState():void
 		{
+			var boreView:MovieClip;
+			var lineSize:uint;
 			for (var i:uint = 0; i < bord_size; i++)
 			{
-				var lineSize:uint = i + 1;
+				lineSize = i + 1;
 				for (var j:uint = 0; j < lineSize; j++)
 				{
-					var boreView:MovieClip = getBore(new PPoint(i, j));
+					boreView = getBore(new PPoint(i, j));
 					boreView.removeEventListener(MouseEvent.MOUSE_DOWN, onStartLine);
 					boreView.addEventListener(MouseEvent.CLICK, onBoreClicked);
 				}
@@ -115,12 +117,14 @@ package com.ma.games.shureBore.view
 		
 		internal function setBordBlockState():void 
 		{
+			var lineSize:uint;
+			var boreView:MovieClip;
 			for (var iX:uint = 0; iX < bord_size; iX++)
 			{
-				var lineSize:uint = iX + 1;
+				lineSize = iX + 1;
 				for (var iY:uint = 0; iY < lineSize; iY++)
 				{
-					var boreView:MovieClip = getBore(new PPoint(iX, iY));
+					boreView = getBore(new PPoint(iX, iY));
 					boreView.removeEventListener(MouseEvent.CLICK, onBoreClicked);
 					root.removeEventListener(MouseEvent.MOUSE_UP, onEndLine);
 					boreView.removeEventListener(MouseEvent.MOUSE_DOWN, onStartLine);
@@ -137,15 +141,17 @@ package com.ma.games.shureBore.view
 		
 		private function onEndLine(evt:MouseEvent):void
 		{
+			var boreView:MovieClip;
+			var lineSize:uint;
 			root.removeEventListener(Event.ENTER_FRAME, drowLine);
 			root.removeEventListener(MouseEvent.MOUSE_UP, onEndLine);
 			lineMc.graphics.clear();
 			for (var iX:uint = 0; iX < bord_size; iX++)
 			{
-				var lineSize:uint = iX + 1;
+				lineSize = iX + 1;
 				for (var iY:uint = 0; iY < lineSize; iY++)
 				{
-					var boreView:MovieClip = getBore(new PPoint(iX, iY));
+					boreView = getBore(new PPoint(iX, iY));
 					restorHigthLigthBore(boreView);
 				}
 			}
@@ -176,6 +182,8 @@ package com.ma.games.shureBore.view
 		
 		private function drowLine(e:Event):void
 		{
+			var lineSize:uint;
+			var boreView:MovieClip;
 			var mc:MovieClip = getBore(line.p1);
 			lineMc.graphics.clear()
 			lineMc.graphics.moveTo(mc.x, mc.y);
@@ -184,10 +192,10 @@ package com.ma.games.shureBore.view
 			lineMc.graphics.endFill();
 			for (var i:uint = 0; i < bord_size; i++)
 			{
-				var lineSize:uint = i + 1;
+				lineSize = i + 1;
 				for (var j:uint = 0; j < lineSize; j++)
 				{
-					var boreView:MovieClip = getBore(new PPoint(i, j));
+					boreView = getBore(new PPoint(i, j));
 					if (PixelPerfectCollisionDetection.isColliding(boreView, lineMc, boreView.parent, true))
 					{
 						setHigthLigthBore(boreView);
@@ -209,6 +217,8 @@ package com.ma.games.shureBore.view
 				case Bore.HIGTH_LIGTH_FULL: 
 					setBoreByStatus(boreView, Bore.FULL);
 					break;
+				default:
+					throw new Error("Unknon bore status");
 			}
 		}
 		
@@ -222,6 +232,8 @@ package com.ma.games.shureBore.view
 				case Bore.FULL: 
 					setBoreByStatus(boreView, Bore.HIGTH_LIGTH_FULL);
 					break;
+				default:
+					throw new Error("Unknon bore status");	
 			}
 		}
 		

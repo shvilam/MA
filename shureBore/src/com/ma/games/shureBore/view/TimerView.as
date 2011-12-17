@@ -1,19 +1,18 @@
-package com.ma.games.shureBore.view 
+package com.ma.games.shureBore.view
 {
-	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	
 	/**
 	 * ...
 	 * @author Shvilam
 	 */
-	public class TimerView extends Sprite 
+	public class TimerView extends Sprite
 	{
 		private static const TICK_SIZE:uint = 2;
 		
 		private var fill:Sprite;
 		
-		public function TimerView() 
+		public function TimerView()
 		{
 			super();
 			var skin:TimerSkin = new TimerSkin();
@@ -28,12 +27,9 @@ package com.ma.games.shureBore.view
 		
 		internal function clear():void
 		{
-			//TODO: 
-			fill.width = 2;
-			//removeChild(fill);	
+			fill.width = TICK_SIZE;
 		}
-		
-		
+	
 	}
 
 }

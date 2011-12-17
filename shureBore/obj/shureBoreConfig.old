@@ -16,11 +16,17 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'10/23/2011'</value>
+      <value>'12/17/2011'</value>
+    </define>
+    <define append="true">
+      <name>CONFIG2::unittests</name>
+      <value>true</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">
       <path-element>D:\Amit\projects\MA\shureBore\src</path-element>
+      <path-element>D:\Amit\projects\MA\shureBore\tests</path-element>
+      <path-element>D:\Amit\projects\MA\lukebayes-asunit-e2af845\as3\src</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
     <library-path append="true">

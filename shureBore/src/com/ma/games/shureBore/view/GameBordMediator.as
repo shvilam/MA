@@ -3,7 +3,6 @@ package com.ma.games.shureBore.view
 	import com.ma.games.shureBore.model.GameValues;
 	import com.ma.games.shureBore.model.vo.Bore;
 	import com.ma.games.shureBore.model.vo.Line;
-	import com.ma.games.shureBore.model.vo.Player;
 	import com.ma.games.shureBore.model.vo.PPoint;
 	import com.ma.games.shureBore.signal.controls.BoreHasUpdatedSignal;
 	import com.ma.games.shureBore.signal.controls.InitBordSignal;
@@ -12,10 +11,7 @@ package com.ma.games.shureBore.view
 	import com.ma.games.shureBore.signal.controls.TurnHasSwitchSignal;
 	import com.ma.games.shureBore.signal.view.TryDrawLineSignal;
 	import com.ma.games.shureBore.signal.view.TryToFillBoreSignal;
-	import com.ma.games.shureBore.signal.view.TurnSignal;
 	import org.robotlegs.mvcs.Mediator;
-
-	
 	/**
 	 * ...
 	 * @author Shvilam
@@ -113,7 +109,7 @@ package com.ma.games.shureBore.view
 		private function onInit(bord:Vector.<Vector.<Bore>>):void
 		{
 			view.drow(bord);
-			onTurnChange();
+			onTurnChange(); //  calling to simulte the setting the first turn
 		}
 		
 		private function onClicked(p:PPoint):void 

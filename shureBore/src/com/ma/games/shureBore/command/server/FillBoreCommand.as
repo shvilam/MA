@@ -1,4 +1,4 @@
-package com.ma.games.shureBore.command.server 
+package com.ma.games.shureBore.command.server
 {
 	import com.ma.games.shureBore.model.GameBordModel;
 	import com.ma.games.shureBore.model.vo.Bore;
@@ -11,7 +11,7 @@ package com.ma.games.shureBore.command.server
 	 * ...
 	 * @author Shvilam
 	 */
-	public class FillBoreCommand extends SignalCommand 
+	public class FillBoreCommand extends SignalCommand
 	{
 		[Inject]
 		public var gameModel:GameBordModel;
@@ -25,16 +25,17 @@ package com.ma.games.shureBore.command.server
 		[Inject]
 		public var updateBoreSignal:BoreHasUpdatedSignal;
 		
-		public function FillBoreCommand() 
+		public function FillBoreCommand()
 		{
-			
+		
 		}
+		
 		override public function execute():void
 		{
 			var bore:Bore = gameModel.fillBore(p);
 			updateBoreSignal.dispatch(bore, playerIndex);
 		}
-		
+	
 	}
 
 }

@@ -1,7 +1,10 @@
 package com.ma.games.shureBore
 {
+	//import asunit.textui.TestRunner;
+	import asunit.textui.TestRunner;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import tests.AllTests;
 	
 	/**
 	 * ...
@@ -18,10 +21,17 @@ package com.ma.games.shureBore
 		
 		private function init(e:Event = null):void 
 		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			var co:ShureBoreContect = new ShureBoreContect(this);
-			// entry point
+			if (CONFIG2::unittests)
+			{
+				var unittests:TestRunner = new TestRunner();
+				stage.addChild(unittests);
+				unittests.start(tests.AllTests, null, TestRunner.SHOW_TRACE);
+			}
+			else
+			{
+				removeEventListener(Event.ADDED_TO_STAGE, init);
+				var co:ShureBoreContect = new ShureBoreContect(this);
+			}
 		}
 		
 	}

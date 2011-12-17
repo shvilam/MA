@@ -1,10 +1,7 @@
-package com.ma.games.shureBore.view 
+package com.ma.games.shureBore.view
 {
 	import com.ma.games.shureBore.model.GameValues;
-	import com.ma.games.shureBore.model.vo.Player;
-	import com.ma.games.shureBore.signal.controls.StopAlowFillBoreSignal;
 	import com.ma.games.shureBore.signal.controls.TurnHasSwitchSignal;
-	import com.ma.games.shureBore.signal.view.TurnSignal;
 	import org.robotlegs.mvcs.Mediator;
 	
 	/**
@@ -22,20 +19,21 @@ package com.ma.games.shureBore.view
 		[Inject]
 		public var gameValues:GameValues;
 		
-		public function TurnMediator() 
+		public function TurnMediator()
 		{
 			super();
-			
+		
 		}
+		
 		public override function onRegister():void
 		{
 			turnHasSwitchSignal.add(onTurnChange);
 			onTurnChange();
 		}
 		
-		private function onTurnChange():void 
+		private function onTurnChange():void
 		{
-			trace("gameValues.isMyTurn()" +  gameValues.isMyTurn());
+			trace("gameValues.isMyTurn()" + gameValues.isMyTurn());
 			if (gameValues.isMyTurn())
 			{
 				view.setMyTurn();
@@ -45,7 +43,7 @@ package com.ma.games.shureBore.view
 				view.setHisTurn();
 			}
 		}
-		
+	
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.ma.games.shureBore 
+package com.ma.games.shureBore
 {
 	
 	import com.ma.games.shureBore.command.*;
@@ -14,25 +14,40 @@ package com.ma.games.shureBore
 	import flash.display.*;
 	import org.robotlegs.mvcs.*;
 	
-	
-	
-	
-	
-	
 	/**
 	 * ...
 	 * @author Shvilam
 	 */
-	public class ShureBoreContect  extends SignalContext	{
-		public var startupSignal:StartupSignal;
+	public class ShureBoreContect extends SignalContext
+	{
+		private var startupSignal:StartupSignal;
+		private var params:Object; 
+		
 		public function ShureBoreContect(contextView:DisplayObjectContainer = null, autoStartup:Boolean = true)
 		{
 			super(contextView, autoStartup);
 		}
+		
 		override public function startup():void
 		{
-			var params:Object = contextView.root.loaderInfo.parameters;
-			
+			params = contextView.root.loaderInfo.parameters;
+			mapClasse();
+			mapView();
+			mapCommand();
+			startupSignal.dispatch();
+		}
+		
+		private function mapView():void
+		{
+			mediatorMap.mapView(GameBordView, GameBordMediator);
+			mediatorMap.mapView(TurnView, TurnMediator);
+			mediatorMap.mapView(ControlsView, ControlsMediator);
+			mediatorMap.mapView(TimerView, TimerMediator);
+			mediatorMap.mapView(ScoreView, ScoreMediator);
+		}
+		
+		private function mapClasse():void
+		{
 			var me:Player = new Player();
 			me.playerIndex = params.mePlayerIndex;
 			me.userId = params.meUserId;
@@ -44,9 +59,7 @@ package com.ma.games.shureBore
 			injector.mapValue(Player, me, "Player.me");
 			injector.mapValue(Player, his, "Player.his");
 			
-			
 			injector.mapSingleton(GameValues);
-			
 			injector.mapSingleton(GameBordModel);
 			injector.mapSingleton(MessageReceiver);
 			injector.mapSingleton(MessageSender);
@@ -57,11 +70,13 @@ package com.ma.games.shureBore
 			injector.mapSingleton(LineHasAddedSignal);
 			injector.mapSingleton(TimeEndedSignal);
 			injector.mapSingleton(StopAlowFillBoreSignal);
-			
 			injector.mapSingletonOf(IMessageBus, ExternalBus);
-			
-			
+		}
+		
+		private function mapCommand():void
+		{
 			startupSignal = StartupSignal(signalCommandMap.mapSignalClass(StartupSignal, StartupCommand));
+			
 			// view
 			signalCommandMap.mapSignalClass(OnBoreClickedSignal, BoreClickCommand);
 			signalCommandMap.mapSignalClass(TimeEndedSignal, MyTimeHasOutCommand);
@@ -70,22 +85,13 @@ package com.ma.games.shureBore
 			signalCommandMap.mapSignalClass(TryToFillBoreSignal, BoreClickCommand);
 			signalCommandMap.mapSignalClass(TryDrawLineSignal, LineDrawCommand);
 			// Server
-			signalCommandMap.mapSignalClass(OnServerFillBoreSignal,FillBoreCommand);
+			signalCommandMap.mapSignalClass(OnServerFillBoreSignal, FillBoreCommand);
 			signalCommandMap.mapSignalClass(OnServerAddLineSignal, AddLineCommand);
 			
 			signalCommandMap.mapSignalClass(TurnSignal, SwitchTurnCommand);
 			signalCommandMap.mapSignalClass(OnServerSwitchTurnSignal, TurnHasSwitchCommand);
-			
-			
-			mediatorMap.mapView(GameBordView, GameBordMediator);
-			mediatorMap.mapView(TurnView, TurnMediator);
-			mediatorMap.mapView(ControlsView, ControlsMediator);
-			mediatorMap.mapView(TimerView, TimerMediator);
-			mediatorMap.mapView(ScoreView, ScoreMediator);
-			
-			startupSignal.dispatch();
 		}
-		
+	
 	}
 
 }

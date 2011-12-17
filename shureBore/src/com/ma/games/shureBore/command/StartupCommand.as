@@ -18,6 +18,7 @@ package com.ma.games.shureBore.command
 	 */
 	public class StartupCommand extends SignalCommand 
 	{
+		private static const BORD_SIZE:int = 5;
 		[Inject]
 		public var gameModel:GameBordModel;
 		
@@ -35,11 +36,6 @@ package com.ma.games.shureBore.command
 		
 		[Inject(name="Player.his")] 
 		public var his:Player;
-		
-		public function StartupCommand()
-		{
-			initBordSignal = new InitBordSignal();
-		}
 		
 		override public function execute():void
 		{
@@ -71,7 +67,7 @@ package com.ma.games.shureBore.command
 			contextView.addChild(scoreView);
 			
 			trace("startUp");
-			gameModel.init(5);
+			gameModel.init(BORD_SIZE);
 			messageReceiver.init();
 			initBordSignal.dispatch(gameModel.gameBord.bord);
 			

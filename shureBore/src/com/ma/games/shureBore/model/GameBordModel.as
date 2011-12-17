@@ -7,7 +7,7 @@ package com.ma.games.shureBore.model
 	import org.robotlegs.mvcs.Actor;
 	
 	/**
-	 * ...
+	 * handle game logic
 	 * @author Shvilam
 	 */
 	public class GameBordModel extends Actor 
@@ -17,10 +17,7 @@ package com.ma.games.shureBore.model
 		public function get bordSize():uint {
 			return gameBord.size;
 		}
-		public function GameBordModel() 
-		{
-			
-		}
+		
 		
 		public function init(size:uint):void
 		{
@@ -28,19 +25,6 @@ package com.ma.games.shureBore.model
 			print();
 		}
 		
-		public function print():void
-		{
-			var line:String = "";
-			for (var i:uint= 0 ;i<gameBord.bord.length; i++)
-			{
-				line = "";
-				for (var j:uint = 0 ; j < gameBord.bord[i].length; j++)
-				{
-					line+=	gameBord.bord[i][j].strState
-				}
-				trace(line);
-			}
-		}
 		public function getBore(p:PPoint):Bore
 		{
 			return gameBord.bord[p.x][p.y];
@@ -140,6 +124,7 @@ package com.ma.games.shureBore.model
 			}
 			return -1;
 		}
+		
 		private function isLineExsist(line:Line):Boolean
 		{
 			for (var i:int = 0; i <gameBord.lines.length; i++) 
@@ -149,16 +134,16 @@ package com.ma.games.shureBore.model
 			}
 			return false;
 		}
-		public function addLine(line:Line):void
-		{
-			
-		}
 		
 		public function hasMoreLines():Boolean 
 		{
 			return (gameBord.lines.length < (gameBord.size * gameBord.size))
 		}
 		
+		/**
+		 * TODO: not realy random. need to replace to random
+		 * @return
+		 */
 		public function getRandomEmptyBore():PPoint 
 		{
 			for (var i:uint= 0 ;i<gameBord.bord.length; i++)
@@ -172,6 +157,24 @@ package com.ma.games.shureBore.model
 				}
 			}
 			return null;
+		}
+		
+		/**
+		 * util print the bords 
+		 * TODO: need to prints line as well
+		 */
+		public function print():void
+		{
+			var line:String = "";
+			for (var i:uint= 0 ;i<gameBord.bord.length; i++)
+			{
+				line = "";
+				for (var j:uint = 0 ; j < gameBord.bord[i].length; j++)
+				{
+					line+=	gameBord.bord[i][j].strState
+				}
+				trace(line);
+			}
 		}
 		
 		

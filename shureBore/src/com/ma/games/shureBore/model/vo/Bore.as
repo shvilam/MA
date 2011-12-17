@@ -1,7 +1,7 @@
 package com.ma.games.shureBore.model.vo 
 {
 	/**
-	 * ...
+	 * single point in the bord
 	 * @author Shvilam
 	 */
 	public class Bore 
@@ -13,6 +13,7 @@ package com.ma.games.shureBore.model.vo
 		
 		public var status:uint;
 		public var point: PPoint;
+		
 		public function get strState():String {
 			return (status == EMPTY)?"0":"X"
 		}

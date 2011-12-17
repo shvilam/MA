@@ -1,7 +1,7 @@
 package com.ma.games.shureBore.model.vo 
 {
 	/**
-	 * ...
+	 * Hold the state of the game
 	 * @author Shvilam
 	 */
 	public class Bord 

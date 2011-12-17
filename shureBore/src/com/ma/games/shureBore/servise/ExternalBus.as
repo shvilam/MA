@@ -2,7 +2,7 @@ package com.ma.games.shureBore.servise
 {
 	import flash.external.ExternalInterface;
 	/**
-	 * ...
+	 * use the java script to emulated a server 
 	 * @author Shvilam
 	 */
 	public class ExternalBus implements IMessageBus
