@@ -16,11 +16,11 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'12/17/2011'</value>
+      <value>'12/18/2011'</value>
     </define>
     <define append="true">
       <name>CONFIG2::unittests</name>
-      <value>true</value>
+      <value>false</value>
     </define>
     <verbose-stacktraces>true</verbose-stacktraces>
     <source-path append="true">

@@ -218,7 +218,7 @@ package com.ma.games.shureBore.view
 					setBoreByStatus(boreView, Bore.FULL);
 					break;
 				default:
-					throw new Error("Unknon bore status");
+					//throw new Error("Unknon bore status");
 			}
 		}
 		
@@ -233,7 +233,7 @@ package com.ma.games.shureBore.view
 					setBoreByStatus(boreView, Bore.HIGTH_LIGTH_FULL);
 					break;
 				default:
-					throw new Error("Unknon bore status");	
+					//throw new Error("Unknon bore status");	
 			}
 		}
 		

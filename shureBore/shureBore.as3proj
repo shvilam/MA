@@ -43,7 +43,7 @@
     <option loadExterns="" />
     <option staticLinkRSL="True" />
     <option additional="" />
-    <option compilerConstants="CONFIG2::unittests,true" />
+    <option compilerConstants="CONFIG2::unittests,false" />
     <option minorVersion="" />
   </build>
   <!-- SWC Include Libraries -->
@@ -92,7 +92,8 @@
   <!-- Other project options -->
   <options>
     <option showHiddenPaths="True" />
-    <option testMovie="ExternalPlayer" />
+    <option testMovie="OpenDocument" />
+    <option testMovieCommand="http://local/shureBore/bin/gameSimulator.html" />
   </options>
   <!-- Plugin storage -->
   <storage />

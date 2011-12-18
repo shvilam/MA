@@ -159,6 +159,10 @@ package com.ma.games.shureBore.model
 			return null;
 		}
 		
+		public function addLine(line:Line):void
+		{
+			
+		}
 		/**
 		 * util print the bords 
 		 * TODO: need to prints line as well

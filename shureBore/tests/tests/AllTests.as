@@ -9,8 +9,7 @@ package tests
 	{
 		
 		public function AllTests()
-		{
-		
+		{		
 		  super();
 		  addTest(new TestGameBordModel("TestInit"));
         }
